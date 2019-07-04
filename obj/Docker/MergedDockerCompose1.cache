@@ -1,0 +1,221 @@
+networks:
+  backend: {}
+  frontend: {}
+services:
+  basket.data:
+    image: redis
+    networks:
+      backend: null
+    ports:
+    - published: 6378
+      target: 6379
+  cart:
+    build:
+      context: C:\Users\Administrator\source\repos\Shoes\CartApi
+      dockerfile: Dockerfile
+      target: build-env
+    container_name: cartapi
+    depends_on:
+    - basket.data
+    - tokenserver
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionString: basket.data
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      IdentityUrl: http://tokenserver
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: cartimage:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  bin/Debug/netcoreapp2.0/CartApi.dll'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/bash -c "if PID=$$(pidof
+        -x dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      backend: null
+      frontend: null
+    ports:
+    - published: 5050
+      target: 80
+    volumes:
+    - C:\Users\Administrator\source\repos\Shoes\CartApi:/app:rw
+    - C:\Users\Administrator\vsdbg\vs2017u5:/remote_debugger:ro
+    - C:\Program Files\dotnet\sdk\NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Administrator\.nuget\packages:/root/.nuget/packages:ro
+  catalog:
+    build:
+      context: C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI
+      dockerfile: Dockerfile
+      target: build
+    container_name: catalogapi
+    depends_on:
+    - mssqlserver
+    entrypoint: tail -f /dev/null
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      DatabaseName: CatalogDb
+      DatabaseServer: mssqlserver
+      DatabaseUser: sa
+      DatabaseUserPassword: ProductApi(!)
+      ExternalCatalogBaseUrl: http://localhost:5010
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: shoes/catalogapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  bin/Debug/netcoreapp2.0/ProductCatalogAPI.dll'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/bash -c "if PID=$$(pidof
+        -x dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      backend: null
+      frontend: null
+    ports:
+    - published: 5010
+      target: 80
+    volumes:
+    - C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI:/app:rw
+    - C:\Users\Administrator\vsdbg\vs2017u5:/remote_debugger:ro
+    - C:\Program Files\dotnet\sdk\NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Administrator\.nuget\packages:/root/.nuget/packages:ro
+  mssqlserver:
+    container_name: catalogdb
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ProductApi(!)
+    image: microsoft/mssql-server-linux:latest
+    networks:
+      backend: null
+    ports:
+    - published: 1445
+      target: 1433
+  order:
+    build:
+      context: C:\Users\Administrator\source\repos\Shoes\OrderApi
+      dockerfile: Dockerfile
+      target: build-env
+    container_name: orderapi
+    depends_on:
+    - mssqlserver
+    - rabbitmq
+    - tokenserver
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      DATABASE: OrdersDb
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      IdentityUrl: http://tokenserver
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+      SA_PASSWORD: ProductApi(!)
+      SQLSERVER_HOST: catalogdb
+    image: shoes/order:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  bin/Debug/netcoreapp2.0/OrderApi.dll'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/bash -c "if PID=$$(pidof
+        -x dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      backend: null
+      frontend: null
+    ports:
+    - published: 5600
+      target: 80
+    volumes:
+    - C:\Users\Administrator\source\repos\Shoes\OrderApi:/app:rw
+    - C:\Users\Administrator\vsdbg\vs2017u5:/remote_debugger:ro
+    - C:\Program Files\dotnet\sdk\NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Administrator\.nuget\packages:/root/.nuget/packages:ro
+  rabbitmq:
+    container_name: rabbitmq
+    hostname: myrabbitmq
+    image: rabbitmq:3-management
+    networks:
+      backend: null
+    ports:
+    - published: 5671
+      target: 5671
+    - published: 5672
+      target: 5672
+    - published: 15672
+      target: 15672
+    volumes:
+    - C:\Users\Administrator\rabbitmq:/var/lib/rabbitmq/mnesia:rw
+  tokenserver:
+    build:
+      context: C:\Users\Administrator\source\repos\Shoes\TokenServiceApi
+      dockerfile: Dockerfile
+      target: base
+    container_name: tokenserviceapi
+    depends_on:
+    - mssqlserver
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      BasketApiClient: http://localhost:5050
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      MvcClient: http://localhost:5200
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: tokenserver:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  bin/Debug/netcoreapp2.1/TokenServiceApi.dll'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/bash -c "if PID=$$(pidof
+        -x dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      backend: null
+      frontend: null
+    ports:
+    - published: 5020
+      target: 80
+    volumes:
+    - C:\Users\Administrator\source\repos\Shoes\TokenServiceApi:/app:rw
+    - C:\Users\Administrator\vsdbg\vs2017u5:/remote_debugger:ro
+    - C:\Program Files\dotnet\sdk\NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Administrator\.nuget\packages:/root/.nuget/packages:ro
+  webmvc:
+    build:
+      context: C:\Users\Administrator\source\repos\Shoes\WebMvc
+      dockerfile: Dockerfile
+      target: build
+    container_name: webshop
+    depends_on:
+    - catalog
+    - order
+    - tokenserver
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      CallBackUrl: http://localhost:5200
+      CartUrl: http://cart
+      CatalogUrl: http://catalog
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      IdentityUrl: http://10.0.0.223:5020
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+      OrderUrl: http://order
+      StripePrivateKey: sk_test_UTck9qZ8Cm7PT9No2zZeTJuY00EqX4CdHz
+      StripePublicKey: pk_test_2mYn1FuQBQXr0YPbvIjBUOZw0021ECoOYt
+    image: webmvc:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  bin/Debug/netcoreapp2.0/WebMvc.dll'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/bash -c "if PID=$$(pidof
+        -x dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      frontend: null
+    ports:
+    - published: 5200
+      target: 80
+    volumes:
+    - C:\Users\Administrator\source\repos\Shoes\WebMvc:/app:rw
+    - C:\Users\Administrator\vsdbg\vs2017u5:/remote_debugger:ro
+    - C:\Program Files\dotnet\sdk\NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Administrator\.nuget\packages:/root/.nuget/packages:ro
+version: '3.4'

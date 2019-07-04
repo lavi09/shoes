@@ -1,0 +1,14 @@
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\obj\Debug\netcoreapp2.1\ProductCatalogAPI.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\obj\Debug\netcoreapp2.1\ProductCatalogAPI.AssemblyInfoInputs.cache
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\obj\Debug\netcoreapp2.1\ProductCatalogAPI.AssemblyInfo.cs
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\bin\Debug\netcoreapp2.1\ProductCatalogAPI.deps.json
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\bin\Debug\netcoreapp2.1\ProductCatalogAPI.runtimeconfig.json
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\bin\Debug\netcoreapp2.1\ProductCatalogAPI.runtimeconfig.dev.json
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\bin\Debug\netcoreapp2.1\ProductCatalogAPI.dll
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\bin\Debug\netcoreapp2.1\ProductCatalogAPI.pdb
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\obj\Debug\netcoreapp2.1\ProductCatalogAPI.csprojAssemblyReference.cache
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\obj\Debug\netcoreapp2.1\ProductCatalogAPI.dll
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\obj\Debug\netcoreapp2.1\ProductCatalogAPI.pdb
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\obj\Debug\netcoreapp2.1\ProductCatalogAPI.RazorAssemblyInfo.cache
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\obj\Debug\netcoreapp2.1\ProductCatalogAPI.RazorAssemblyInfo.cs
+C:\Users\Administrator\source\repos\Shoes\ProductCatalogAPI\obj\Debug\netcoreapp2.1\ProductCatalogAPI.RazorTargetAssemblyInfo.cache

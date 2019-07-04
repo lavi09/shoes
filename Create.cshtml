@@ -1,0 +1,134 @@
+@using Microsoft.AspNetCore.Identity
+@using WebMvc.Services
+@using WebMvc.ViewModels
+@inject IIdentityService<ApplicationUser> UserManager
+@model WebMvc.ViewModels.EventCreationViewModel
+
+@{
+    ViewData["Title"] = "New event";
+}
+
+<div class="container">
+    <form asp-action="Index" asp-controller="EventCreation" asp-for="@Model" method="post">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <section class="esh-create-event">
+
+            <h4 class="esh-orders_new-title">Basic Information</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Event Title</label>
+                        <input class="form-control form-input" type="text" placeholder="Title" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Organizer Name</label>
+                        <input class="form-control form-input" type="text" placeholder="Name" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input class="form-control form-input" type="text" placeholder="Address" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>State</label>
+                        <input class="form-control form-input" type="text" placeholder="State" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Zipcode</label>
+                        <input class="form-control form-input" type="text" placeholder="Zipcode" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input class="form-control form-input" type="text" placeholder="Date" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input class="form-control form-input" type="text" placeholder="Date" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Start Time</label>
+                        <input class="form-control form-input" type="text" placeholder="Time" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>End Time</label>
+                        <input class="form-control form-input" type="text" placeholder="Time" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.TypesFilterApplied" class="control-label">EventType</label><br />
+                @Html.DropDownListFor(m => m.TypesFilterApplied, Model.Types)
+                <span asp-validation-for="@Model.TypesFilterApplied" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.CategoryFilterApplied" class="control-label">EventCategory</label><br />
+                @Html.DropDownListFor(m => m.CategoryFilterApplied, @Model.Categories)
+                <span asp-validation-for="@Model.CategoryFilterApplied" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <label asp-for="@Model.Event.PictureUrl" class="control-label"></label>
+                <input asp-for="@Model.Event.PictureUrl" value="http://localhost:33247/api/pic/10" class="form-control" />
+                <span asp-validation-for="@Model.Event.PictureUrl" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input class="form-control form-input" type="text" placeholder="Enter Text" />
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <div class="form-group">
+            <input type="hidden" asp-for="@Model.Categories" name="eventcategories" />
+            <input type="hidden" asp-for="@Model.Types" name="eventTypes" />
+            <input class="esh-event-send" style="height: 50px; width:200px" value="Publish Event" type="submit" />
+        </div>
+
+    </form>
+
+</div>
+<div>
+    <a asp-action="Create">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+

@@ -1,0 +1,11 @@
+C:\Users\Administrator\source\repos\Shoes\CartApi\obj\Debug\netcoreapp2.0\CartApi.csprojAssemblyReference.cache
+C:\Users\Administrator\source\repos\Shoes\CartApi\obj\Debug\netcoreapp2.0\CartApi.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\Shoes\CartApi\obj\Debug\netcoreapp2.0\CartApi.AssemblyInfoInputs.cache
+C:\Users\Administrator\source\repos\Shoes\CartApi\obj\Debug\netcoreapp2.0\CartApi.AssemblyInfo.cs
+C:\Users\Administrator\source\repos\Shoes\CartApi\bin\Debug\netcoreapp2.0\CartApi.deps.json
+C:\Users\Administrator\source\repos\Shoes\CartApi\bin\Debug\netcoreapp2.0\CartApi.runtimeconfig.json
+C:\Users\Administrator\source\repos\Shoes\CartApi\bin\Debug\netcoreapp2.0\CartApi.runtimeconfig.dev.json
+C:\Users\Administrator\source\repos\Shoes\CartApi\bin\Debug\netcoreapp2.0\CartApi.dll
+C:\Users\Administrator\source\repos\Shoes\CartApi\bin\Debug\netcoreapp2.0\CartApi.pdb
+C:\Users\Administrator\source\repos\Shoes\CartApi\obj\Debug\netcoreapp2.0\CartApi.dll
+C:\Users\Administrator\source\repos\Shoes\CartApi\obj\Debug\netcoreapp2.0\CartApi.pdb

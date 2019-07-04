@@ -1,0 +1,11 @@
+C:\Users\Administrator\source\repos\Shoes\OrderApi\bin\Debug\netcoreapp2.0\OrderApi.deps.json
+C:\Users\Administrator\source\repos\Shoes\OrderApi\bin\Debug\netcoreapp2.0\OrderApi.runtimeconfig.json
+C:\Users\Administrator\source\repos\Shoes\OrderApi\bin\Debug\netcoreapp2.0\OrderApi.runtimeconfig.dev.json
+C:\Users\Administrator\source\repos\Shoes\OrderApi\bin\Debug\netcoreapp2.0\OrderApi.dll
+C:\Users\Administrator\source\repos\Shoes\OrderApi\bin\Debug\netcoreapp2.0\OrderApi.pdb
+C:\Users\Administrator\source\repos\Shoes\OrderApi\obj\Debug\netcoreapp2.0\OrderApi.csprojAssemblyReference.cache
+C:\Users\Administrator\source\repos\Shoes\OrderApi\obj\Debug\netcoreapp2.0\OrderApi.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\Shoes\OrderApi\obj\Debug\netcoreapp2.0\OrderApi.AssemblyInfoInputs.cache
+C:\Users\Administrator\source\repos\Shoes\OrderApi\obj\Debug\netcoreapp2.0\OrderApi.AssemblyInfo.cs
+C:\Users\Administrator\source\repos\Shoes\OrderApi\obj\Debug\netcoreapp2.0\OrderApi.dll
+C:\Users\Administrator\source\repos\Shoes\OrderApi\obj\Debug\netcoreapp2.0\OrderApi.pdb
